@@ -1,24 +1,27 @@
-const mongodb = require('mongodb');
-
-const { MongoClient } = mongodb;
+const { MongoClient } = require('mongodb');
 
 let _db;
 
-exports.connectDB = async _ => {
+const connectDB = (uri, dbName) => async _ => {
+  let client;
   try {
-    let client = await MongoClient.connect('mongodb://localhost:27017', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
-    _db = client.db('Huey-emma');
-    console.log('Database Created by Huey-emma');
+    client = await new MongoClient(`${uri}/${dbName}`, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true
+    }).connect();
+
+    _db = client.db();
+
+    console.log(`Database Connected by ${dbName}`);
   } catch (err) {
     console.error(err);
     throw err;
   }
 };
 
-exports.getDB = _ => {
-  if (_db) return _db;
-  throw 'No database found';
-};
+const getDB = _ => (_db ? _db : new Error('No Database Connection'));
+
+let connectDatabase = connectDB('mongodb://localhost:27017', 'Huey-emma');
+
+exports.connectDatabase = connectDatabase;
+exports.getDB = getDB;
