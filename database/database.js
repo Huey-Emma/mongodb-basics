@@ -1,6 +1,8 @@
 const { MongoClient } = require('mongodb');
 
 let _db;
+const URI_STRING = 'mongodb://localhost:27017';
+const DB_NAME = 'Huey-emma';
 
 const connectDB = (uri, dbName) => async _ => {
   let client;
@@ -21,7 +23,7 @@ const connectDB = (uri, dbName) => async _ => {
 
 const getDB = _ => (_db ? _db : new Error('No Database Connection'));
 
-let connectDatabase = connectDB('mongodb://localhost:27017', 'Huey-emma');
+let connectDatabase = connectDB(URI_STRING, DB_NAME);
 
 exports.connectDatabase = connectDatabase;
 exports.getDB = getDB;
