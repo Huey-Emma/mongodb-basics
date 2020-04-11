@@ -1,5 +1,4 @@
 const { connectDB, getDB } = require('./database'),
-  { Intern } = require('./models/Intern'),
   { Movie } = require('./models/Movies');
 
 const { log, error } = console;
@@ -17,8 +16,12 @@ const createCollection = (cName) => {
 // Save data to database
 const save = async (cName, data) => {
   await connectDB();
-  let $data = await createCollection(cName).insertMany(data);
-  log($data.ops);
+  try {
+    let $data = await createCollection(cName).insertMany(data);
+    log($data.ops);
+  } catch (err) {
+    error(err);
+  }
 };
 
 const theBanker = new Movie('The Banker', '2020', 8);
@@ -29,4 +32,4 @@ const firstCow = new Movie('First Cow', '2020', 6.5);
 
 const movies = [theBanker, badBoys, theHunt, bloodshot, firstCow];
 
-save(MOVIES_COLLECTION, movies);
+// save(MOVIES_COLLECTION, movies);
