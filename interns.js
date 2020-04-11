@@ -10,12 +10,12 @@ const createCollection = (cName, data) => {
   let db = getDB();
   // Log Message to console
   log(`${cName} Collection Created!`);
-  db.collection(cName).insertOne(data);
+  return db.collection(cName);
 };
 
 const save = async (cName, data) => {
   await connectDB();
-  createCollection(cName, data);
+  createCollection(cName).insertOne(data);
 };
 
 const huey = new Intern('Emmanuel', 'Huey-emma');
