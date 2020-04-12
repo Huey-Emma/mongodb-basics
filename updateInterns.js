@@ -39,4 +39,4 @@ let updateDoc = findAndUpdateDoc(
   updateCondtn
 );
 
-updateDoc(MOVIES_COLLECTION);
+// updateDoc(MOVIES_COLLECTION);

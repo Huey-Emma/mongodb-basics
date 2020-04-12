@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 
+// Log funcs
 const { log, error } = console;
 
 const URI_STRING = 'mongodb://localhost:27017',
